@@ -5,7 +5,6 @@ import json
 
 
 from math import log2
-from msilib.schema import Class
 from xml.sax.handler import DTDHandler
 import pandas as pd 
 import numpy as np 
