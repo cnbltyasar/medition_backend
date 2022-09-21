@@ -22,7 +22,6 @@ import json
 def index(request):
     if request.method == 'POST':
         json_data = json.loads(request.body)
-
         
         #df = json_data.to_dict()
         train = pd.DataFrame.from_dict(json_data, orient='index')
