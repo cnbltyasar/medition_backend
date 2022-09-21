@@ -16,7 +16,7 @@ from spectrum import Criteria
 from scipy.stats import kurtosis
 import pickle
 import matplotlib.pyplot as plt
-
+import json
 
 
 @csrf_exempt
@@ -24,13 +24,22 @@ def index(request):
     if request.method == 'POST':
         json_data = json.loads(request.body)
 
+        
+        #df = json_data.to_dict()
+        train = pd.DataFrame.from_dict(json_data, orient='index')
+        #train.reset_index(level=0, inplace=True)
+        df = train
         bruxism = Bruxism()
-        df5 = bruxism.FinalFeatures(json_data)
-        y_pred = bruxism.MachineLearningModel(df5).to_dict()
+        features = bruxism.FinalFeatures(df)
+        y_pred = bruxism.MachineLearningModel(features)
 
-        #df = main.Bruxism(json_data).to_dict()
-        print(y_pred)
-        json_object = json.dumps(y_pred, indent=4)
+        df = pd.DataFrame(y_pred, columns = ['PredictedLabel'])
+
+        df = df.to_dict()
+
+        print(df)
+
+        json_object = json.dumps(df, indent=4)
         print(json_object)
     return HttpResponse(json_object,content_type="application/json")
 
