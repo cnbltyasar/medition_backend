@@ -32,7 +32,6 @@ def index(request):
         bruxism = Bruxism()
         features = bruxism.FinalFeatures(df)
         y_pred = bruxism.MachineLearningModel(features)
-
         df = pd.DataFrame(y_pred, columns = ['PredictedLabel'])
 
         df = df.to_dict()
