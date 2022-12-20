@@ -24,7 +24,7 @@ def index(request):
         json_data = json.loads(request.body)
         
         #df = json_data.to_dict()
-        train = pd.DataFrame.from_dict(json_data, orient='index')
+        train = pd.DataFrame.from_dict(json_data)
         #train.reset_index(level=0, inplace=True)
         df = train
         bruxism = Bruxism()
